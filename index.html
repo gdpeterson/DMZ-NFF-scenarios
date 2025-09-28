@@ -4,26 +4,33 @@
   <meta charset="UTF-8" />
   <title>DMZ Futures Explorer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 820px; margin: 2rem auto; padding: 0 1rem; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
     #plot { margin-top: 1rem; border: 1px solid #ddd; border-radius: 8px; padding: 12px; }
     .card { margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
     .muted { color: #666; font-size: 0.9rem; }
+    .chips { display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 0; }
+    .chip { border:1px solid #ccc; padding:.25rem .5rem; border-radius:999px; background:#fff; font-size:.85rem; }
+    .group { margin-top: .75rem; }
+    button.toggle { padding:.25rem .5rem; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer; }
+    button.toggle.active { background:#111; color:#fff; border-color:#111; }
   </style>
-
-  <!-- Load D3 FIRST -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
-  <!-- Load our code AFTER, using defer so it runs when DOM is ready -->
   <script src="explore.js" defer></script>
 </head>
 <body>
-  <main>
-    <h1>DMZ Futures Explorer (static demo)</h1>
-    <p class="muted">If you don’t see a triangle below, open the browser console (View → Developer Tools → Console) and tell me what error you see.</p>
+  <header>
+    <h1>DMZ Futures Explorer</h1>
+    <div>
+      <button id="btn-en" class="toggle">EN</button>
+      <button id="btn-kr" class="toggle">KR</button>
+    </div>
+  </header>
 
-    <div id="plot"></div>
-    <div id="scenario-card" class="card"></div>
-  </main>
+  <p class="muted">Click in the triangle to snap to the nearest authored vision. Toggle EN/KR to switch language.</p>
+
+  <div id="plot"></div>
+  <div id="scenario-card" class="card"></div>
 </body>
 </html>
