@@ -1,4 +1,4 @@
-console.log("[explore.js v7] loaded");
+console.log("[explore.js v8] loaded");
 
 // --- Simple i18n state ---
 let LANG = localStorage.getItem("dmz-lang") || "en";
@@ -12,13 +12,22 @@ let CURRENT_VISION = null;
 let AXIS_LABEL_NODES = []; // three <text> nodes for axes
 let SHOW_CARD = () => {};  // assigned after data loads
 
+// HOISTED: make renderAxes global so setLang() can call it safely
+function renderAxes() {
+  if (AXIS_LABEL_NODES.length !== 3) return;
+  const L = I18N[LANG].axes;
+  AXIS_LABEL_NODES[0].text(L[0]);
+  AXIS_LABEL_NODES[1].text(L[1]);
+  AXIS_LABEL_NODES[2].text(L[2]);
+}
+
 function setLang(lang) {
   LANG = lang;
   localStorage.setItem("dmz-lang", LANG);
   document.getElementById("btn-en")?.classList.toggle("active", LANG === "en");
   document.getElementById("btn-kr")?.classList.toggle("active", LANG === "kr");
-  if (AXIS_LABEL_NODES.length === 3) renderAxes(); // update axis text
-  if (CURRENT_VISION) SHOW_CARD(CURRENT_VISION);   // update card text
+  renderAxes();                     // now safe: hoisted & global
+  if (CURRENT_VISION) SHOW_CARD(CURRENT_VISION);
   console.log("[i18n] LANG =", LANG);
 }
 
@@ -40,7 +49,15 @@ window.addEventListener("DOMContentLoaded", async () => {
   // Triangle outline
   svg.append("path")
     .attr("d", `M${A.x+origin.x},${A.y+origin.y} L${B.x+origin.x},${B.y+origin.y} L${C.x+origin.x},${C.y+origin.y}Z`)
-    .attr("stroke", "#111").attr("fill", "none");
+    .attr("stroke", "#111").attr("fill", "none")
+    .style("pointer-events", "all"); // let clicks land on the path too
+
+  // FULL-SIZE CLICK CATCHER (transparent, on top of triangle)
+  const clickCatcher = svg.append("rect")
+    .attr("x", 0).attr("y", 0)
+    .attr("width", width).attr("height", height)
+    .attr("fill", "transparent")
+    .style("pointer-events", "all");
 
   // Axis labels (store nodes so we can re-render text on toggle)
   AXIS_LABEL_NODES = [
@@ -48,15 +65,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     svg.append("text").attr("x", origin.x - 8).attr("y", origin.y + (Math.sqrt(3)/2)*side + 18).attr("text-anchor", "end").attr("class", "muted"),
     svg.append("text").attr("x", origin.x + side + 8).attr("y", origin.y + (Math.sqrt(3)/2)*side + 18).attr("text-anchor", "start").attr("class", "muted")
   ];
-  function renderAxes() {
-    const L = I18N[LANG].axes;
-    AXIS_LABEL_NODES[0].text(L[0]);
-    AXIS_LABEL_NODES[1].text(L[1]);
-    AXIS_LABEL_NODES[2].text(L[2]);
-  }
+
   // initial lang state + axes
-  setLang(LANG);
-  renderAxes();
+  setLang(LANG);   // sets buttons + calls renderAxes()
+  renderAxes();    // harmless extra call
 
   // Helpers for ternary <-> xy
   function baryToXY(nff) {
@@ -94,8 +106,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     console.error("[data] visions load failed:", e);
     document.getElementById("scenario-card").innerHTML =
       `<strong>Load error:</strong> ${e.message || String(e)}<br><span class="muted">Ensure data/visions.json exists.</span>`;
-    // Without visions we can’t plot points; keep triangle visible and bail.
-    return;
+    return; // can't proceed without visions
   }
 
   // seeds (optional)
@@ -127,12 +138,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     svg.append("text").attr("x", x+8).attr("y", y-8).attr("class", "muted").text(v.title_en || v.id);
   }
 
-  // Click interaction (snap to nearest)
-  svg.on("click", (e) => {
-    const [x,y] = d3.pointer(e);
+  // Click interaction (snap to nearest) — use explicit container for pointer
+  console.log("[ui] click handler bound; visions =", visions.length);
+  clickCatcher.on("click", (e) => {
+    const [x, y] = d3.pointer(e, svg.node());
+    console.log("[ui] click at", x, y);
     cursor.attr("cx", x).attr("cy", y);
-    const v = nearestVision(x,y,visions);
-    if (v) { CURRENT_VISION = v; SHOW_CARD(v); }
+    const v = nearestVision(x, y, visions);
+    if (v) { console.log("[ui] snapped to:", v.id || v.title_en); CURRENT_VISION = v; SHOW_CARD(v); }
+    else { console.warn("[ui] no nearest vision found"); }
   });
 
   // Card renderer (assigned so setLang() can call it later)
