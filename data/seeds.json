@@ -1,65 +1,101 @@
 [
   {
     "id": "seed-rewilding",
-    "title_en": "Rewilding",
-    "title_kr": "리와일딩",
+    "title_en": "Rewilding the DMZ",
+    "title_kr": "DMZ 리와일딩",
     "domain": "Conservation",
-    "present_state_en": "Small-scale restoration pilots in DMZ-adjacent areas.",
-    "present_state_kr": "DMZ 인접 지역에서 소규모 복원 시범이 진행 중.",
-    "vision_2050_en": "Connected habitats with apex species and long-term stewardship.",
-    "vision_2050_kr": "정점종과 장기 관리가 가능한 연결된 서식지 조성.",
+    "description_en": "Reintroducing and supporting large mammals and keystone species to restore ecological processes.",
+    "description_kr": "생태 과정을 복원하기 위해 큰 포유류와 핵심 종을 재도입하고 지원합니다.",
     "source": "Preprint Table 1"
   },
   {
     "id": "seed-endangered-protection",
     "title_en": "Endangered Species Protection",
-    "title_kr": "멸종위기종 보호",
+    "title_kr": "멸종 위기종 보호",
     "domain": "Conservation",
-    "present_state_en": "Legal protection lists and targeted monitoring.",
-    "present_state_kr": "법적 보호목록과 표적 모니터링 시행.",
-    "vision_2050_en": "Viable metapopulations across DMZ–CCZ corridors.",
-    "vision_2050_kr": "DMZ–CCZ 회랑 전역에서 생존 가능한 메타개체군 형성.",
+    "description_en": "Safeguarding cranes, bears, and other DMZ flagship species through legal and ecological measures.",
+    "description_kr": "법적·생태적 조치를 통해 두루미, 곰 등 DMZ 대표 종을 보호합니다.",
     "source": "Preprint Table 1"
   },
   {
     "id": "seed-smart-farms",
-    "title_en": "Smart Farms",
-    "title_kr": "스마트팜",
+    "title_en": "Smart Sustainable Farms",
+    "title_kr": "스마트 지속가능 농장",
     "domain": "Agriculture",
-    "present_state_en": "Digitized greenhouses and precision inputs.",
-    "present_state_kr": "디지털 온실과 정밀 투입재 활용.",
-    "vision_2050_en": "Biodiversity-positive, low-emission agro-ecologies.",
-    "vision_2050_kr": "생물다양성 친화·저배출 농생태계.",
+    "description_en": "Developing sensor-driven agriculture in the CCZ to balance food production with biodiversity.",
+    "description_kr": "CCZ에서 센서 기반 농업을 개발하여 식량 생산과 생물다양성의 균형을 맞춥니다.",
     "source": "Preprint Table 1"
   },
   {
     "id": "seed-nbcs",
-    "title_en": "Nature-based Climate Solutions",
-    "title_kr": "자연기반 기후해법",
-    "domain": "Community",
-    "present_state_en": "Mangrove/wetland projects and policy pilots.",
-    "present_state_kr": "습지 사업 및 정책 시범 진행.",
-    "vision_2050_en": "Scaled mitigation with biodiversity co-benefits.",
-    "vision_2050_kr": "생물다양성 공동편익을 갖춘 대규모 감축 수단.",
+    "title_en": "Nature-Based Carbon Solutions",
+    "title_kr": "자연 기반 탄소 해결책",
+    "domain": "Economy",
+    "description_en": "Wetland and forest restoration projects that generate carbon credits.",
+    "description_kr": "탄소 크레딧을 창출하는 습지 및 산림 복원 프로젝트.",
     "source": "Preprint Table 1"
   },
   {
-    "id": "seed-guardian-spirits",
-    "title_en": "Guardian Spirits",
-    "title_kr": "수호령",
-    "domain": "Culture",
-    "present_state_en": "Place-based cultural practices persist in some regions.",
-    "present_state_kr": "일부 지역에서 장소 기반 문화 실천이 지속.",
-    "vision_2050_en": "Shrine-like learning hubs linking culture and restoration.",
-    "vision_2050_kr": "문화와 복원을 잇는 사당형 학습 허브.",
-    "source": "Preprint Table 2 (NaC)"
+    "id": "seed-ecotourism",
+    "title_en": "Cross-border Ecotourism",
+    "title_kr": "국경 간 생태관광",
+    "domain": "Community",
+    "description_en": "Creating eco-corridors and heritage routes connecting North and South Korea.",
+    "description_kr": "남북을 잇는 생태 회랑과 유산 경로를 조성합니다.",
+    "source": "Preprint Table 1"
   },
   {
-    "id": "seed-eco-knowledge",
-    "title_en": "Ecological Knowledge in Schools",
-    "title_kr": "학교 생태지식 주류화",
+    "id": "seed-cultural-heritage",
+    "title_en": "Cultural Heritage Revitalization",
+    "title_kr": "문화유산 활성화",
+    "domain": "Culture",
+    "description_en": "Reviving intangible heritage, art, and local practices in DMZ border communities.",
+    "description_kr": "DMZ 접경 지역의 무형유산, 예술, 지역적 관행을 되살립니다.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-education-hubs",
+    "title_en": "Education & Research Hubs",
+    "title_kr": "교육 및 연구 허브",
     "domain": "Education",
-    "present_state_en": "Curriculum pilots and citizen-science programs.",
-    "present_state_kr": "교육과정 시범·시민과학 프로그램 운영.",
-    "vision_2050_en": "Field-based learning across all grades.",
-    "vision
+    "description_en": "Cross-border institutes for peace ecology, sustainability, and cultural learning.",
+    "description_kr": "평화 생태학, 지속가능성, 문화 학습을 위한 국경 간 연구소.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-water-wetlands",
+    "title_en": "Wetland Restoration & Water Management",
+    "title_kr": "습지 복원 및 수자원 관리",
+    "domain": "Conservation",
+    "description_en": "Restoring DMZ wetlands to improve biodiversity and regulate floods and droughts.",
+    "description_kr": "DMZ 습지를 복원하여 생물다양성을 증진하고 홍수·가뭄을 조절합니다.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-renewables",
+    "title_en": "Renewable Energy Cooperatives",
+    "title_kr": "재생에너지 협동조합",
+    "domain": "Economy",
+    "description_en": "Solar and wind projects run as cooperatives in CCZ villages.",
+    "description_kr": "CCZ 마을에서 협동조합 형태로 운영되는 태양광·풍력 프로젝트.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-community-gardens",
+    "title_en": "Peace Community Gardens",
+    "title_kr": "평화 공동체 정원",
+    "domain": "Community",
+    "description_en": "Shared gardens for food, cultural exchange, and reconciliation.",
+    "description_kr": "식량, 문화 교류, 화해를 위한 공동 정원.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-arts-performance",
+    "title_en": "Arts & Performance Festivals",
+    "title_kr": "예술 및 공연 축제",
+    "domain": "Culture",
+    "description_en": "Joint cultural festivals showcasing peace, nature, and reconciliation.",
+    "description_kr": "평화, 자연, 화해를 주제로 한 공동 문화 축제.",
+    "source": "Preprint Table 1"
+  }
+]
