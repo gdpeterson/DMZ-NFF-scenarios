@@ -1,7 +1,21 @@
 console.log("[explore.js] loaded");
 
-// Simple language state (EN default)
+// --- Simple i18n state ---
 let LANG = localStorage.getItem("dmz-lang") || "en";
+const I18N = {
+  en: {
+    axes: ["Nature for Nature (A)", "Nature for Society (B)", "Nature as Culture (C)"],
+    seeds: "Seeds",
+    stories: "Stories",
+    source: "Source"
+  },
+  kr: {
+    axes: ["자연을 위한 자연 (A)", "사회를 위한 자연 (B)", "자연으로서의 문화 (C)"],
+    seeds: "시드",
+    stories: "이야기",
+    source: "출처"
+  }
+};
 function setLang(lang) {
   LANG = lang;
   localStorage.setItem("dmz-lang", LANG);
@@ -9,33 +23,37 @@ function setLang(lang) {
   document.getElementById("btn-kr").classList.toggle("active", LANG === "kr");
 }
 
+// will be set after init
+let CURRENT_VISION = null;
+let AXIS_LABEL_NODES = [];
+
 window.addEventListener("DOMContentLoaded", async () => {
   // Wire language buttons
-  document.getElementById("btn-en").addEventListener("click", () => { setLang("en"); if (currentVision) showCard(currentVision); });
-  document.getElementById("btn-kr").addEventListener("click", () => { setLang("kr"); if (currentVision) showCard(currentVision); });
+  document.getElementById("btn-en").addEventListener("click", () => {
+    setLang("en"); renderAxes(); if (CURRENT_VISION) showCard(CURRENT_VISION);
+  });
+  document.getElementById("btn-kr").addEventListener("click", () => {
+    setLang("kr"); renderAxes(); if (CURRENT_VISION) showCard(CURRENT_VISION);
+  });
   setLang(LANG);
 
   try {
-    // Load all datasets
     const [visions, seeds, stories] = await Promise.all([
       fetch("data/visions.json").then(r => { if(!r.ok) throw new Error("visions.json missing"); return r.json(); }),
       fetch("data/seeds.json").then(r => { if(!r.ok) throw new Error("seeds.json missing"); return r.json(); }),
       fetch("data/stories.json").then(r => { if(!r.ok) throw new Error("stories.json missing"); return r.json(); })
     ]);
 
-    // Index seeds by id for quick lookup
     const seedById = new Map(seeds.map(s => [s.id, s]));
-    // Group stories by vision_key (e.g., "Nature for Society")
     const storiesByVisionKey = stories.reduce((acc, st) => {
       (acc[st.vision_key] ||= []).push(st);
       return acc;
     }, {});
 
-    // Triangle setup
+    // ---- Ternary setup ----
     const width = 520, height = 460, padding = 36;
     const side = Math.min(width, height) - 2 * padding;
     const origin = { x: padding, y: padding + 10 };
-
     const A = { x: 0.5 * side, y: 0 };
     const B = { x: 0, y: (Math.sqrt(3) / 2) * side };
     const C = { x: side, y: (Math.sqrt(3) / 2) * side };
@@ -49,13 +67,19 @@ window.addEventListener("DOMContentLoaded", async () => {
       .attr("d", `M${A.x+origin.x},${A.y+origin.y} L${B.x+origin.x},${B.y+origin.y} L${C.x+origin.x},${C.y+origin.y}Z`)
       .attr("stroke", "#111").attr("fill", "none");
 
-    // Axes labels
-    const labels = [
-      { text: "Nature for Nature (A)", x: origin.x + side*0.5, y: origin.y - 6, anchor: "middle" },
-      { text: "Nature for Society (B)", x: origin.x - 8, y: origin.y + (Math.sqrt(3)/2)*side + 18, anchor: "end" },
-      { text: "Nature as Culture (C)", x: origin.x + side + 8, y: origin.y + (Math.sqrt(3)/2)*side + 18, anchor: "start" }
+    // Axis labels (store nodes so we can re-render text on toggle)
+    AXIS_LABEL_NODES = [
+      svg.append("text").attr("x", origin.x + side*0.5).attr("y", origin.y - 6).attr("text-anchor", "middle").attr("class", "muted"),
+      svg.append("text").attr("x", origin.x - 8).attr("y", origin.y + (Math.sqrt(3)/2)*side + 18).attr("text-anchor", "end").attr("class", "muted"),
+      svg.append("text").attr("x", origin.x + side + 8).attr("y", origin.y + (Math.sqrt(3)/2)*side + 18).attr("text-anchor", "start").attr("class", "muted")
     ];
-    labels.forEach(l => svg.append("text").attr("x", l.x).attr("y", l.y).attr("text-anchor", l.anchor).attr("class", "muted").text(l.text));
+    function renderAxes() {
+      const L = I18N[LANG].axes;
+      AXIS_LABEL_NODES[0].text(L[0]);
+      AXIS_LABEL_NODES[1].text(L[1]);
+      AXIS_LABEL_NODES[2].text(L[2]);
+    }
+    renderAxes();
 
     // Helpers
     function baryToXY(nff) {
@@ -68,94 +92,4 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
     function nearestVision(x, y) {
       let best=null, bestD=Infinity;
-      visions.forEach(v => {
-        const p = baryToXY(v.nff);
-        const d = (p.x-x)**2 + (p.y-y)**2;
-        if (d < bestD) { bestD = d; best = v; }
-      });
-      return best;
-    }
-
-    // Plot authored vision points
-    visions.forEach(v => {
-      const { x, y } = baryToXY(v.nff);
-      svg.append("circle").attr("cx", x).attr("cy", y).attr("r", 5).attr("fill", "#111")
-        .append("title").text(v.title_en || v.id);
-      svg.append("text").attr("x", x+8).attr("y", y-8).attr("class", "muted").text(v.title_en || v.id);
-    });
-
-    // Cursor and interactions
-    let cursor = svg.append("circle").attr("r", 10).attr("stroke", "#111").attr("fill", "#fff");
-    let currentVision = null;
-
-    svg.on("click", (e) => {
-      const [x,y] = d3.pointer(e);
-      cursor.attr("cx", x).attr("cy", y);
-      const v = nearestVision(x,y);
-      if (v) { currentVision = v; showCard(v); }
-    });
-
-    // Initialize at first vision
-    if (visions[0]) {
-      const p = baryToXY(visions[0].nff);
-      cursor.attr("cx", p.x).attr("cy", p.y);
-      currentVision = visions[0];
-      showCard(currentVision);
-    }
-
-    // Render the scenario card with seeds + stories and language
-    function showCard(v) {
-      const div = document.getElementById("scenario-card");
-      const t_en = v.title_en || "";
-      const t_kr = v.title_kr || "";
-      const s_en = v.summary_en || "";
-      const s_kr = v.summary_kr || "";
-      const sources = Array.isArray(v.source) ? v.source.join(", ") : (v.source || "");
-
-      // resolve seeds by id
-      const seedObjs = (v.seeds || []).map(id => seedById.get(id)).filter(Boolean);
-
-      // stories by the vision's title_key
-      const visionKey = v.title_key || v.title_en; // fallback
-      const visionStories = storiesByVisionKey[visionKey] || [];
-
-      const title = LANG === "kr" ? `${t_kr} / ${t_en}` : `${t_en} / ${t_kr}`;
-      const summary = LANG === "kr" ? s_kr : s_en;
-
-      const seedChips = seedObjs.map(s => {
-        const name = LANG === "kr" ? s.title_kr : s.title_en;
-        return `<span class="chip" title="${s.domain}">${name}</span>`;
-      }).join("");
-
-      const storyList = visionStories.map(st => {
-        const name = LANG === "kr" ? st.title_kr : st.title_en;
-        const abs = LANG === "kr" ? st.abstract_kr : st.abstract_en;
-        return `<li><strong>${name}</strong><br><span class="muted">${abs || ""}</span></li>`;
-      }).join("");
-
-      div.innerHTML = `
-        <h2>${title}</h2>
-        <p>${summary}</p>
-
-        <div class="group">
-          <h3>Seeds / 시드</h3>
-          <div class="chips">${seedChips || "<span class='muted'>—</span>"}</div>
-        </div>
-
-        <div class="group">
-          <h3>Stories / 이야기</h3>
-          <ul style="margin-left:1rem">${storyList || "<span class='muted'>—</span>"}</ul>
-        </div>
-
-        <div class="group">
-          <small class="muted">Source: ${sources || "—"}</small>
-        </div>
-      `;
-    }
-
-  } catch (err) {
-    console.error(err);
-    const div = document.getElementById("scenario-card");
-    div.innerHTML = `<strong>Load error:</strong> ${err.message || String(err)}<br><span class="muted">Check file paths & casing.</span>`;
-  }
-});
+      visions
