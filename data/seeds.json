@@ -1,0 +1,65 @@
+[
+  {
+    "id": "seed-rewilding",
+    "title_en": "Rewilding",
+    "title_kr": "리와일딩",
+    "domain": "Conservation",
+    "present_state_en": "Small-scale restoration pilots in DMZ-adjacent areas.",
+    "present_state_kr": "DMZ 인접 지역에서 소규모 복원 시범이 진행 중.",
+    "vision_2050_en": "Connected habitats with apex species and long-term stewardship.",
+    "vision_2050_kr": "정점종과 장기 관리가 가능한 연결된 서식지 조성.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-endangered-protection",
+    "title_en": "Endangered Species Protection",
+    "title_kr": "멸종위기종 보호",
+    "domain": "Conservation",
+    "present_state_en": "Legal protection lists and targeted monitoring.",
+    "present_state_kr": "법적 보호목록과 표적 모니터링 시행.",
+    "vision_2050_en": "Viable metapopulations across DMZ–CCZ corridors.",
+    "vision_2050_kr": "DMZ–CCZ 회랑 전역에서 생존 가능한 메타개체군 형성.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-smart-farms",
+    "title_en": "Smart Farms",
+    "title_kr": "스마트팜",
+    "domain": "Agriculture",
+    "present_state_en": "Digitized greenhouses and precision inputs.",
+    "present_state_kr": "디지털 온실과 정밀 투입재 활용.",
+    "vision_2050_en": "Biodiversity-positive, low-emission agro-ecologies.",
+    "vision_2050_kr": "생물다양성 친화·저배출 농생태계.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-nbcs",
+    "title_en": "Nature-based Climate Solutions",
+    "title_kr": "자연기반 기후해법",
+    "domain": "Community",
+    "present_state_en": "Mangrove/wetland projects and policy pilots.",
+    "present_state_kr": "습지 사업 및 정책 시범 진행.",
+    "vision_2050_en": "Scaled mitigation with biodiversity co-benefits.",
+    "vision_2050_kr": "생물다양성 공동편익을 갖춘 대규모 감축 수단.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-guardian-spirits",
+    "title_en": "Guardian Spirits",
+    "title_kr": "수호령",
+    "domain": "Culture",
+    "present_state_en": "Place-based cultural practices persist in some regions.",
+    "present_state_kr": "일부 지역에서 장소 기반 문화 실천이 지속.",
+    "vision_2050_en": "Shrine-like learning hubs linking culture and restoration.",
+    "vision_2050_kr": "문화와 복원을 잇는 사당형 학습 허브.",
+    "source": "Preprint Table 2 (NaC)"
+  },
+  {
+    "id": "seed-eco-knowledge",
+    "title_en": "Ecological Knowledge in Schools",
+    "title_kr": "학교 생태지식 주류화",
+    "domain": "Education",
+    "present_state_en": "Curriculum pilots and citizen-science programs.",
+    "present_state_kr": "교육과정 시범·시민과학 프로그램 운영.",
+    "vision_2050_en": "Field-based learning across all grades.",
+    "vision
