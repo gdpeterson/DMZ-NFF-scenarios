@@ -98,4 +98,22 @@
     "description_kr": "평화, 자연, 화해를 주제로 한 공동 문화 축제.",
     "source": "Preprint Table 1"
   }
+  {
+  "id": "seed-guardian-spirits",
+  "title_en": "Guardian Spirits",
+  "title_kr": "수호령",
+  "domain": "Culture",
+  "description_en": "Place-based cultural stewardship: shrines, rituals, and guardianship practices tied to local ecosystems.",
+  "description_kr": "장소 기반 문화적 보호관리: 사당, 의례, 지역 생태계에 연계된 수호 관행.",
+  "source": "Preprint Table 2 (NaC)"
+},
+{
+  "id": "seed-eco-knowledge",
+  "title_en": "Ecological Knowledge in Schools",
+  "title_kr": "학교 생태지식 주류화",
+  "domain": "Education",
+  "description_en": "Field-based ecology learning embedded across grades; citizen science and local biodiversity curricula.",
+  "description_kr": "전 학제에 현장 중심 생태 학습 도입; 시민과학과 지역 생물다양성 교육과정.",
+  "source": "Preprint Table 1"
+}
 ]
