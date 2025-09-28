@@ -4,18 +4,40 @@
   <meta charset="UTF-8" />
   <title>DMZ Futures Explorer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
-    header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-    #plot { margin-top: 1rem; border: 1px solid #ddd; border-radius: 8px; padding: 12px; }
-    .card { margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
-    .muted { color: #666; font-size: 0.9rem; }
+    :root{
+      --ink:#0f172a;            /* slate-900 */
+      --muted:#64748b;          /* slate-500 */
+      --card:#f8fafc;           /* slate-50 */
+      --stroke:#cbd5e1;         /* slate-300 */
+      --tri:#0f172a;            /* triangle outline */
+      --chip-bg:#ffffff;
+      --chip-stroke:#e2e8f0;
+      --shadow:0 10px 25px rgba(15,23,42,.08);
+      --axis:#475569;           /* axis label color */
+    }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif;
+      max-width: 980px; margin: 2rem auto; padding: 0 1rem; color: var(--ink);
+      background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%);
+    }
+    header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    #plot { margin-top: 1rem; border: 1px solid var(--stroke); border-radius: 14px; padding: 16px; background:#fff; box-shadow: var(--shadow); }
+    .card { margin-top: 1rem; padding: 1rem; border: 1px solid var(--stroke); border-radius: 14px; background: var(--card); }
+    .muted { color: var(--muted); font-size: .92rem; }
     .chips { display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 0; }
-    .chip { border:1px solid #ccc; padding:.25rem .5rem; border-radius:999px; background:#fff; font-size:.85rem; }
-    .group { margin-top: .75rem; }
-    button.toggle { padding:.25rem .5rem; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer; }
-    button.toggle.active { background:#111; color:#fff; border-color:#111; }
+    .chip { display:inline-flex; align-items:center; gap:.4ch; border:1px solid var(--chip-stroke); padding:.25rem .55rem; border-radius:999px; background:var(--chip-bg); font-size:.85rem; }
+    .group { margin-top: .85rem; }
+    button.toggle { padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
+    button.toggle.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+    /* Scenario tag style (colored name labels on the triangle) */
+    .scenario-tag { font-weight:600; font-size:.9rem; paint-order: stroke; stroke: #fff; stroke-width: 6px; }
+    .axis { fill: var(--axis); font-size:.88rem; letter-spacing:.02em; font-variant: all-small-caps; }
+    .tick { fill: var(--muted); font-size:.78rem; }
   </style>
+
+  
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="explore.js?v=7" defer></script>
 </head>
