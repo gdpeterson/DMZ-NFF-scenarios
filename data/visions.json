@@ -3,30 +3,33 @@
     "id": "vision-nfn",
     "title_en": "Nature for Nature",
     "title_kr": "자연을 위한 자연",
+    "title_key": "Nature for Nature",
     "summary_en": "DMZ preserved primarily as ecological sanctuary.",
     "summary_kr": "DMZ는 주로 생태 보호구역으로 보존됩니다.",
     "nff": { "a": 0.7, "b": 0.2, "c": 0.1 },
-    "seeds": ["Rewilding", "Endangered species protection"],
+    "seeds": ["seed-rewilding", "seed-endangered-protection"],
     "source": ["Preprint §3.3"]
   },
   {
     "id": "vision-nfs",
     "title_en": "Nature for Society",
     "title_kr": "사회를 위한 자연",
+    "title_key": "Nature for Society",
     "summary_en": "DMZ used for ecosystem services and wellbeing.",
     "summary_kr": "DMZ는 생태계 서비스와 웰빙을 위해 사용됩니다.",
     "nff": { "a": 0.25, "b": 0.6, "c": 0.15 },
-    "seeds": ["Smart farms", "NbCS"],
+    "seeds": ["seed-smart-farms", "seed-nbcs"],
     "source": ["Preprint §3.3"]
   },
   {
     "id": "vision-nac",
     "title_en": "Nature as Culture",
     "title_kr": "자연으로서의 문화",
+    "title_key": "Nature as Culture",
     "summary_en": "Cultural-ecological autonomy, ecotourism that benefits nature.",
     "summary_kr": "문화-생태 자율성, 자연에 이로운 생태관광.",
     "nff": { "a": 0.2, "b": 0.25, "c": 0.55 },
-    "seeds": ["Guardian spirits", "Ecological knowledge mainstreaming"],
+    "seeds": ["seed-guardian-spirits", "seed-eco-knowledge"],
     "source": ["Preprint §3.3"]
   }
 ]
