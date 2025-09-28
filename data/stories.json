@@ -1,0 +1,29 @@
+[
+  {
+    "id": "story-nfs-1",
+    "vision_key": "Nature for Society",
+    "title_en": "Robot Ecosystem-Service Farmer",
+    "title_kr": "로봇 생태계서비스 농부",
+    "abstract_en": "Automation & NbCS reshape livelihoods and reduce pollution.",
+    "abstract_kr": "자동화와 자연기반해법이 생계를 변화시키고 오염을 줄임.",
+    "source": "Peterson NS1"
+  },
+  {
+    "id": "story-nfn-1",
+    "vision_key": "Nature for Nature",
+    "title_en": "Park Ranger at the Frontier",
+    "title_kr": "보전 최전선의 레인저",
+    "abstract_en": "Life and work under strict conservation.",
+    "abstract_kr": "엄격한 보전하의 삶과 일.",
+    "source": "Peterson NN2"
+  },
+  {
+    "id": "story-nac-1",
+    "vision_key": "Nature as Culture",
+    "title_en": "AI Tiger Guardian",
+    "title_kr": "AI 호랑이 수호령",
+    "abstract_en": "Tradition blended with sensing tech for stewardship.",
+    "abstract_kr": "전통과 센싱 기술의 결합으로 보호관리.",
+    "source": "Peterson NC4"
+  }
+]
