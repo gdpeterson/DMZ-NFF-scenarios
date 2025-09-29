@@ -12,8 +12,8 @@ Content is grounded in two core sources:
 
 ## 🌐 Live site
 
-👉 [https://USERNAME.github.io/DMZ-NFF-scenarios/](https://USERNAME.github.io/DMZ-NFF-scenarios/)  
-(replace `USERNAME` with your GitHub handle)
+[https://gdpeterson.github.io/DMZ-NFF-scenarios/](https://gdpeterson.github.io/DMZ-NFF-scenarios/)  
+
 
 ---
 
@@ -21,7 +21,7 @@ Content is grounded in two core sources:
 
 - **Interactive ternary plot** (NN = Nature for Nature, NS = Nature for Society, NC = Nature as Culture)  
   – click anywhere to snap to the nearest authored scenario.
-- **Four visions + Balanced + Hybrid** scenarios, each with seeds, stories, and sources.
+- **Five scenarios, each with seeds, stories, and sources.
 - **Seeds library** with domain filters (Agriculture, Conservation, Community, Culture, Education, Economy).
 - **Stories gallery** (planned) showing narrative vignettes.
 - **Bilingual toggle (EN/KR)** — persists across pages.
@@ -78,17 +78,6 @@ Enable **Pages** in repo settings and select the `main` branch, `/root` folder.
 
 ---
 
-## ✅ Data integrity
-
-Use `data/validate.js` (development helper) to catch common issues:
-
-- Missing seed/story IDs
-- NFF weights not summing to ~1
-- Vision keys not matching
-
-Open `validate.js` in browser console while serving the site.
-
----
 
 ## 📜 License
 
@@ -100,8 +89,6 @@ Open `validate.js` in browser console while serving the site.
 ## 🙏 Acknowledgments
 
 - EcoPeace Forum 2023–2024 participants  
-- Stockholm Resilience Centre  
-- Authors of the visioning process (Kim et al.) and the storybook (Peterson)  
 
 ---
 
