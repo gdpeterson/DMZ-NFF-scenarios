@@ -117,3 +117,20 @@ window.addEventListener("DOMContentLoaded", async () => {
   // Start at first
   if(visions[0]){ const p=baryToXY(visions[0].nff); selectVision(visions[0],p); }
 });
+
+// flip language fn
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem("dmz-lang", LANG);
+  document.getElementById("btn-en")?.classList.toggle("active", LANG === "en");
+  document.getElementById("btn-kr")?.classList.toggle("active", LANG === "kr");
+
+  // axes remain in English (so we skip renderAxes here)
+  if (CURRENT_VISION) SHOW_CARD(CURRENT_VISION);
+
+  console.log("[i18n] LANG =", LANG);
+
+  // Dispatch event so index.html can update static text
+  document.dispatchEvent(new CustomEvent("dmz-lang-change", { detail: { lang } }));
+}
+
