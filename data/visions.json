@@ -32,4 +32,28 @@
     "seeds": ["seed-guardian-spirits", "seed-eco-knowledge"],
     "source": ["Preprint §3.3"]
   }
+  ,
+{
+  "id": "vision-balanced",
+  "title_en": "Balanced Nature Futures",
+  "title_kr": "균형 잡힌 미래",
+  "title_key": "Balanced Nature Futures",
+  "summary_en": "Deliberate balance among protection, livelihoods, and cultural meaning across the DMZ–CCZ.",
+  "summary_kr": "보전, 생계, 문화적 의미를 DMZ–CCZ 전반에 걸쳐 균형 있게 추구합니다.",
+  "nff": { "a": 0.34, "b": 0.33, "c": 0.33 },
+  "seeds": ["seed-water-wetlands","seed-education-hubs"],
+  "source": ["Preprint §3.3"]
+},
+{
+  "id": "vision-hybrid",
+  "title_en": "Hybrid Corridor Commons",
+  "title_kr": "하이브리드 회랑 커먼즈",
+  "title_key": "Hybrid Corridor Commons",
+  "summary_en": "A stitched mosaic: strict sanctuary cores with society/culture corridors enabling livelihoods and rituals.",
+  "summary_kr": "엄격한 보호 핵심지와 사회·문화 회랑을 연결해 생계와 의례가 공존하는 모자이크.",
+  "nff": { "a": 0.45, "b": 0.30, "c": 0.25 },
+  "seeds": ["seed-rewilding","seed-ecotourism","seed-cultural-heritage"],
+  "source": ["Preprint synthesis (EcoPeace 2023–2024)"]
+}
+
 ]
