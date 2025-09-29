@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stories • DMZ Futures Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{ --ink:#0f172a; --muted:#64748b; --card:#f8fafc; --stroke:#cbd5e1; --axis:#475569;
+           --chip-bg:#ffffff; --chip-stroke:#e2e8f0; --shadow:0 10px 25px rgba(15,23,42,.08); }
+    body{ font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+          max-width:1060px; margin:2rem auto; padding:0 1rem; color:var(--ink);
+          background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%); }
+    header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    nav a{ color:var(--muted); text-decoration:none; margin-right:1rem; }
+    .group{ margin:1rem 0; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+    .card{ padding:1rem; border:1px solid var(--stroke); border-radius:14px; background:var(--card); box-shadow:var(--shadow); }
+    .muted{ color:var(--muted); font-size:.92rem; }
+    .chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.4rem 0 0; }
+    .chip{ display:inline-flex; align-items:center; border:1px solid var(--chip-stroke); padding:.2rem .5rem; border-radius:999px; background:var(--chip-bg); font-size:.82rem; }
+    button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
+    button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
+  </style>
+  <script>
+    const STATIC_I18N = {
+      en:{ title:"Stories • DMZ Futures Explorer", h1:"Stories Gallery", back:"← Back to Explore",
+           by_vision:"Grouped by Vision", seeds:"Seeds", source:"Source" },
+      kr:{ title:"이야기 • DMZ 미래 탐색기", h1:"이야기 갤러리", back:"← 탐색으로 돌아가기",
+           by_vision:"비전에 따른 분류", seeds:"시드", source:"출처" }
+    };
+    function applyI18n(lang){
+      document.title = STATIC_I18N[lang].title;
+      document.getElementById("h1").textContent = STATIC_I18N[lang].h1;
+      document.getElementById("back").textContent = STATIC_I18N[lang].back;
+      document.getElementById("by_vision").textContent = STATIC_I18N[lang].by_vision;
+      document.querySelectorAll("[data-seeds-label]").forEach(el => el.textContent = STATIC_I18N[lang].seeds + ": ");
+      document.querySelectorAll("[data-source-label]").forEach(el => el.textContent = STATIC_I18N[lang].source + ": ");
+    }
+    document.addEventListener("dmz-lang-change", e => applyI18n(e.detail.lang));
+  </script>
+</head>
+<body>
+  <header>
+    <h1 id="h1">Stories Gallery</h1>
+    <div>
+      <button id="btn-en" class="toggle">EN</button>
+      <button id="btn-kr" class="toggle">KR</button>
+    </div>
+  </header>
+  <nav>
+    <a id="back" href="index.html">← Back to Explore</a>
+  </nav>
+
+  <p class="muted" id="by_vision">Grouped by Vision</p>
+
+  <div id="container"></div>
+
+  <script>
+    let LANG = localStorage.getItem("dmz-lang") || "en";
+    function setLang(lang){
+      LANG = lang; localStorage.setItem("dmz-lang",lang);
+      document.getElementById("btn-en").classList.toggle("active", lang==="en");
+      document.getElementById("btn-kr").classList.toggle("active", lang==="kr");
+      applyI18n(lang);
+      document.dispatchEvent(new CustomEvent("dmz-lang-change",{detail:{lang}}));
+      render();
+    }
+    document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
+    document.getElementById("btn-kr").addEventListener("click", ()=>setLang("kr"));
+    applyI18n(LANG);
+
+    let stories=[], seeds=[], visions=[];
+    Promise.all([
+      fetch("data/stories.json").then(r=>r.json()),
+      fetch("data/seeds.json").then(r=>r.json()).catch(()=>[]),
+      fetch("data/visions.json").then(r=>r.json())
+    ]).then(([st, sd, vs])=>{
+      stories = st; seeds = sd; visions = vs;
+      render();
+    }).catch(err=>{
+      document.getElementById("container").innerHTML = `<div class="muted">Load error: ${err.message}</div>`;
+    });
+
+    function render(){
+      const byVision = {};
+      for(const v of visions){
+        const key = v.title_key || v.title_en || v.id;
+        byVision[key] = [];
+      }
+      for(const s of stories){
+        (byVision[s.vision_key] ||= []).push(s);
+      }
+
+      // helper: seed title by id
+      const seedMap = new Map(seeds.map(s => [s.id, s]));
+
+      const container = document.getElementById("container");
+      container.innerHTML = Object.entries(byVision).map(([vkey, list])=>{
+        if(!list || list.length === 0) return "";
+        const v = visions.find(V => (V.title_key||V.title_en||V.id) === vkey);
+        const vTitle = LANG==="kr" ? (v?.title_kr||vkey) : (v?.title_en||vkey);
+        const cards = list.map(st=>{
+          const seedChips = (st.seeds||[]).map(id=>{
+            const sd = seedMap.get(id);
+            const name = sd ? (LANG==="kr" ? sd.title_kr : sd.title_en) : id;
+            return `<span class="chip">${name}</span>`;
+          }).join("");
+          return `
+            <article class="card">
+              <h3>${LANG==="kr" ? st.title_kr : st.title_en}</h3>
+              <p class="muted">${LANG==="kr" ? st.abstract_kr : st.abstract_en}</p>
+              <p class="muted"><strong data-seeds-label>Seeds: </strong>${seedChips || "—"}</p>
+              <p class="muted"><strong data-source-label>Source: </strong>${st.source || "—"}</p>
+            </article>
+          `;
+        }).join("");
+
+        return `
+          <section class="group">
+            <h2>${vTitle}</h2>
+            <div class="grid">${cards}</div>
+          </section>
+        `;
+      }).join("");
+    }
+
+    // init buttons state
+    document.getElementById("btn-en").classList.toggle("active", LANG==="en");
+    document.getElementById("btn-kr").classList.toggle("active", LANG==="kr");
+  </script>
+</body>
+</html>
