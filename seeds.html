@@ -19,6 +19,7 @@
     .muted{ color:var(--muted); font-size:.92rem; }
     button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
     button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
+    pre.err{ white-space:pre-wrap; color:#e11d48; background:#fff3f3; border:1px solid #fca5a5; border-radius:8px; padding:.75rem; }
   </style>
   <script>
     const STATIC_I18N = {
@@ -33,8 +34,7 @@
       document.getElementById("label-filter").textContent = STATIC_I18N[lang].filter;
       document.getElementById("back").textContent = STATIC_I18N[lang].back;
       const sel = document.getElementById("domain");
-      sel.options[0].text = STATIC_I18N[lang].all;
-      // update existing cards
+      if (sel && sel.options.length) sel.options[0].text = STATIC_I18N[lang].all;
       document.querySelectorAll("[data-source-label]").forEach(el => el.textContent = STATIC_I18N[lang].source + ": ");
     }
     document.addEventListener("dmz-lang-change", e => applyI18n(e.detail.lang));
@@ -62,6 +62,7 @@
   <div id="grid" class="grid"></div>
 
   <script>
+    // ---- Language wiring ----
     let LANG = localStorage.getItem("dmz-lang") || "en";
     function setLang(lang){
       LANG = lang; localStorage.setItem("dmz-lang",lang);
@@ -74,25 +75,48 @@
     document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
     document.getElementById("btn-kr").addEventListener("click", ()=>setLang("kr"));
     applyI18n(LANG);
+    document.getElementById("btn-en").classList.toggle("active", LANG==="en");
+    document.getElementById("btn-kr").classList.toggle("active", LANG==="kr");
 
+    // ---- Data load with diagnostics ----
     let seeds = [];
     const domainSel = document.getElementById("domain");
     domainSel.addEventListener("change", render);
 
-    fetch("data/seeds.json").then(r=>r.json()).then(json=>{
-      seeds = json;
-      // populate domains
-      const domains = [...new Set(seeds.map(s=>s.domain).filter(Boolean))].sort();
-      for(const d of domains){
-        const opt = document.createElement("option");
-        opt.value = d; opt.textContent = d;
-        domainSel.appendChild(opt);
-      }
-      render();
-    }).catch(err=>{
-      document.getElementById("grid").innerHTML = `<div class="muted">Load error: ${err.message}</div>`;
-    });
+    const url = "./data/seeds.json"; // <- explicit relative path
+    fetch(url, { cache: "no-store" })
+      .then(async r => {
+        const text = await r.text();
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status} for ${r.url}\n\nFirst 200 chars:\n${text.slice(0,200)}`);
+        }
+        // If server returned HTML (e.g., 404 page), show that
+        if (/^\s*</.test(text)) {
+          throw new Error(`Expected JSON but got HTML from ${r.url}\n\nFirst 200 chars:\n${text.slice(0,200)}`);
+        }
+        try {
+          seeds = JSON.parse(text);
+        } catch (e) {
+          throw new Error(`JSON parse error: ${e.message}\n\nFirst 200 chars:\n${text.slice(0,200)}`);
+        }
+        if (!Array.isArray(seeds)) throw new Error("Parsed seeds.json is not an array.");
 
+        // Populate domains
+        const domains = [...new Set(seeds.map(s=>s.domain).filter(Boolean))].sort();
+        for (const d of domains) {
+          const opt = document.createElement("option");
+          opt.value = d; opt.textContent = d;
+          domainSel.appendChild(opt);
+        }
+        render();
+      })
+      .catch(err => {
+        document.getElementById("grid").innerHTML =
+          `<pre class="err">Load error:\n${err.message}</pre>`;
+        console.error("[seeds] load error", err);
+      });
+
+    // ---- Render ----
     function render(){
       const grid = document.getElementById("grid");
       const dom = domainSel.value;
@@ -105,10 +129,6 @@
         </article>
       `).join("");
     }
-
-    // init buttons state
-    document.getElementById("btn-en").classList.toggle("active", LANG==="en");
-    document.getElementById("btn-kr").classList.toggle("active", LANG==="kr");
   </script>
 </body>
 </html>
