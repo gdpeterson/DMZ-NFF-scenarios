@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seeds • DMZ Futures Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{ --ink:#0f172a; --muted:#64748b; --card:#f8fafc; --stroke:#cbd5e1; --axis:#475569;
+           --chip-bg:#ffffff; --chip-stroke:#e2e8f0; --shadow:0 10px 25px rgba(15,23,42,.08); }
+    body{ font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+          max-width:1060px; margin:2rem auto; padding:0 1rem; color:var(--ink);
+          background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%); }
+    header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    nav a{ color:var(--muted); text-decoration:none; margin-right:1rem; }
+    .toolbar{ display:flex; gap:.75rem; align-items:center; margin:.5rem 0 1rem; }
+    select{ padding:.4rem .6rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+    .card{ padding:1rem; border:1px solid var(--stroke); border-radius:14px; background:var(--card); box-shadow:var(--shadow); }
+    .muted{ color:var(--muted); font-size:.92rem; }
+    button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
+    button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
+  </style>
+  <
