@@ -15,16 +15,7 @@
       background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%);
     }
     header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
-
-<nav>
-  <a href="#explore">Explore</a>
-  <a href="seeds.html">Seeds</a>
-  <a href="stories.html">Stories</a>
-  <a href="#about">About</a>
-  <a href="#library">Library</a>
-</nav>
-
-    
+    nav a{ color:var(--muted); text-decoration:none; margin-right:1rem; }
     #plot{ margin-top:1rem; border:1px solid var(--stroke); border-radius:14px; padding:16px; background:#fff; box-shadow:var(--shadow); }
     .card{ margin-top:1rem; padding:1rem; border:1px solid var(--stroke); border-radius:14px; background:var(--card); }
     .muted{ color:var(--muted); font-size:.92rem; }
@@ -43,15 +34,16 @@
   <!-- Load D3 first -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <!-- Load your app (bump ?v= when you update explore.js to bust cache) -->
-  <script src="explore.js?v=11" defer></script>
+  <script src="explore.js?v=12" defer></script>
 
   <!-- Static-site i18n for all non-triangle text -->
   <script>
-    // Bilingual strings for static text on this page (axes stay English via explore.js)
     const STATIC_I18N = {
       en: {
         title: "DMZ Futures Explorer",
         nav_explore: "Explore",
+        nav_seeds: "Seeds",
+        nav_stories: "Stories",
         nav_about: "About",
         nav_library: "Library",
         tagline: "Explore DMZ futures via the Nature Futures Framework. Click in the triangle to snap to a scenario; use EN/KR to switch language.",
@@ -65,6 +57,8 @@
       kr: {
         title: "DMZ 미래 탐색기",
         nav_explore: "탐색",
+        nav_seeds: "시드",
+        nav_stories: "이야기",
         nav_about: "소개",
         nav_library: "자료실",
         tagline: "자연 미래 프레임워크로 DMZ의 가능한 미래를 탐색하세요. 삼각형을 클릭하면 가장 가까운 시나리오로 이동합니다. EN/KR 버튼으로 언어를 전환하세요.",
@@ -86,13 +80,11 @@
       });
     }
 
-    // Initialize static text to saved language BEFORE explore.js renders
     document.addEventListener("DOMContentLoaded", () => {
       const initLang = localStorage.getItem("dmz-lang") || "en";
       updateStaticText(initLang);
     });
 
-    // Listen for language changes from explore.js (see note below)
     document.addEventListener("dmz-lang-change", (e) => {
       updateStaticText(e.detail.lang);
     });
@@ -107,8 +99,11 @@
     </div>
   </header>
 
+  <!-- ✅ NAV GOES IN THE BODY, NOT INSIDE <style> -->
   <nav>
     <a href="#explore" data-i18n="nav_explore">Explore</a>
+    <a href="seeds.html" data-i18n="nav_seeds">Seeds</a>
+    <a href="stories.html" data-i18n="nav_stories">Stories</a>
     <a href="#about" data-i18n="nav_about">About</a>
     <a href="#library" data-i18n="nav_library">Library</a>
   </nav>
