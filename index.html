@@ -4,32 +4,28 @@
   <meta charset="UTF-8" />
   <title>DMZ Futures Explorer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<style>
-  :root{ --ink:#0f172a; --muted:#64748b; --card:#f8fafc; --stroke:#cbd5e1; --axis:#475569;
-         --chip-bg:#ffffff; --chip-stroke:#e2e8f0; --shadow:0 10px 25px rgba(15,23,42,.08); }
-  body{ font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
-        max-width:1060px; margin:2rem auto; padding:0 1rem; color:var(--ink);
-        background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%); }
-  header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; }
-  nav a{ color:var(--muted); text-decoration:none; margin-right:1rem; }
-  #plot{ margin-top:1rem; border:1px solid var(--stroke); border-radius:14px; padding:16px; background:#fff; box-shadow:var(--shadow); }
-  .card{ margin-top:1rem; padding:1rem; border:1px solid var(--stroke); border-radius:14px; background:var(--card); }
-  .muted{ color:var(--muted); font-size:.92rem; }
-  .chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 0; }
-  .chip{ display:inline-flex; align-items:center; gap:.4ch; border:1px solid var(--chip-stroke);
-         padding:.25rem .55rem; border-radius:999px; background:var(--chip-bg); font-size:.85rem; }
-  .group{ margin-top:.85rem; }
-  button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
-  button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
-  .scenario-tag{ font-weight:600; font-size:.95rem; paint-order:stroke; stroke:#fff; stroke-width:8px; }
-  .axis{ fill:var(--axis); font-size:.9rem; letter-spacing:.02em; font-variant:all-small-caps; }
-  .legend{ font-size:.9rem; }
-  .provenance{ margin-top:1rem; font-size:.9rem; color:var(--muted); }
-</style>
-
-
-  
+  <style>
+    :root{ --ink:#0f172a; --muted:#64748b; --card:#f8fafc; --stroke:#cbd5e1; --axis:#475569;
+           --chip-bg:#ffffff; --chip-stroke:#e2e8f0; --shadow:0 10px 25px rgba(15,23,42,.08); }
+    body{ font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+          max-width:1060px; margin:2rem auto; padding:0 1rem; color:var(--ink);
+          background: radial-gradient(1200px 600px at 30% -10%, #eef2ff 0%, #ffffff 55%); }
+    header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    nav a{ color:var(--muted); text-decoration:none; margin-right:1rem; }
+    #plot{ margin-top:1rem; border:1px solid var(--stroke); border-radius:14px; padding:16px; background:#fff; box-shadow:var(--shadow); }
+    .card{ margin-top:1rem; padding:1rem; border:1px solid var(--stroke); border-radius:14px; background:var(--card); }
+    .muted{ color:var(--muted); font-size:.92rem; }
+    .chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 0; }
+    .chip{ display:inline-flex; align-items:center; gap:.4ch; border:1px solid var(--chip-stroke);
+           padding:.25rem .55rem; border-radius:999px; background:var(--chip-bg); font-size:.85rem; }
+    .group{ margin-top:.85rem; }
+    button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
+    button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
+    .scenario-tag{ font-weight:600; font-size:.95rem; paint-order:stroke; stroke:#fff; stroke-width:8px; }
+    .axis{ fill:var(--axis); font-size:.9rem; letter-spacing:.02em; font-variant:all-small-caps; }
+    .legend{ font-size:.9rem; }
+    .provenance{ margin-top:1rem; font-size:.9rem; color:var(--muted); }
+  </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="explore.js?v=10" defer></script>
 </head>
@@ -42,9 +38,41 @@
     </div>
   </header>
 
-  <p class="muted">Click in the triangle to snap to the nearest authored vision. Toggle EN/KR to switch language.</p>
+  <nav>
+    <a href="#explore">Explore</a>
+    <a href="#about">About</a>
+    <a href="#library">Library</a>
+  </nav>
 
+  <p class="muted">
+    Explore DMZ futures via the Nature Futures Framework.  
+    Click near the triangle to snap to a scenario; toggle EN/KR to switch language.
+  </p>
+
+  <div id="explore"></div>
   <div id="plot"></div>
   <div id="scenario-card" class="card"></div>
+
+  <p class="provenance">
+    Provenance: EcoPeace Forum 2023–2024 — scenarios & seeds curated from the DMZ preprint (Kim et al. 2024) and Peterson’s storybook.
+  </p>
+
+  <section id="about" class="card">
+    <h2>About</h2>
+    <p>
+      This minimal prototype makes the Nature Futures Framework explorable for the Korean DMZ context:
+      <em>Nature for Nature</em>, <em>Nature for Society</em>, <em>Nature as Culture</em>, and a
+      <em>Balanced synthesis</em>, plus a hybrid corridor concept.  
+      All content is grounded in two source documents from the EcoPeace Forum process.
+    </p>
+  </section>
+
+  <section id="library" class="card">
+    <h2>Library</h2>
+    <ul>
+      <li><a href="https://osf.io/g3zb4_v1" target="_blank">Kim et al. 2024 — DMZ Visions Preprint (EcoPeace Forum)</a></li>
+      <li><a href="https://osf.io/g3zb4_v1" target="_blank">Peterson 2024 — DMZ Storybook (Narratives & Vignettes)</a></li>
+    </ul>
+  </section>
 </body>
 </html>
