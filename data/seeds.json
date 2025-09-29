@@ -48,4 +48,72 @@
     "id": "seed-cultural-heritage",
     "title_en": "Cultural Heritage Revitalization",
     "title_kr": "문화유산 활성화",
-    "domain": "Cult
+    "domain": "Culture",
+    "description_en": "Reviving intangible heritage, art, and local practices in DMZ border communities.",
+    "description_kr": "DMZ 접경 지역의 무형유산, 예술, 지역적 관행을 되살립니다.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-education-hubs",
+    "title_en": "Education & Research Hubs",
+    "title_kr": "교육 및 연구 허브",
+    "domain": "Education",
+    "description_en": "Cross-border institutes for peace ecology, sustainability, and cultural learning.",
+    "description_kr": "평화 생태학, 지속가능성, 문화 학습을 위한 국경 간 연구소.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-water-wetlands",
+    "title_en": "Wetland Restoration & Water Management",
+    "title_kr": "습지 복원 및 수자원 관리",
+    "domain": "Conservation",
+    "description_en": "Restoring DMZ wetlands to improve biodiversity and regulate floods and droughts.",
+    "description_kr": "DMZ 습지를 복원하여 생물다양성을 증진하고 홍수·가뭄을 조절합니다.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-renewables",
+    "title_en": "Renewable Energy Cooperatives",
+    "title_kr": "재생에너지 협동조합",
+    "domain": "Economy",
+    "description_en": "Solar and wind projects run as cooperatives in CCZ villages.",
+    "description_kr": "CCZ 마을에서 협동조합 형태로 운영되는 태양광·풍력 프로젝트.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-community-gardens",
+    "title_en": "Peace Community Gardens",
+    "title_kr": "평화 공동체 정원",
+    "domain": "Community",
+    "description_en": "Shared gardens for food, cultural exchange, and reconciliation.",
+    "description_kr": "식량, 문화 교류, 화해를 위한 공동 정원.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-arts-performance",
+    "title_en": "Arts & Performance Festivals",
+    "title_kr": "예술 및 공연 축제",
+    "domain": "Culture",
+    "description_en": "Joint cultural festivals showcasing peace, nature, and reconciliation.",
+    "description_kr": "평화, 자연, 화해를 주제로 한 공동 문화 축제.",
+    "source": "Preprint Table 1"
+  },
+  {
+    "id": "seed-guardian-spirits",
+    "title_en": "Guardian Spirits",
+    "title_kr": "수호령",
+    "domain": "Culture",
+    "description_en": "Place-based cultural stewardship: shrines, rituals, and guardianship practices tied to local ecosystems.",
+    "description_kr": "장소 기반 문화적 보호관리: 사당, 의례, 지역 생태계에 연계된 수호 관행.",
+    "source": "Preprint Table 2 (NaC)"
+  },
+  {
+    "id": "seed-eco-knowledge",
+    "title_en": "Ecological Knowledge in Schools",
+    "title_kr": "학교 생태지식 주류화",
+    "domain": "Education",
+    "description_en": "Field-based ecology learning embedded across grades; citizen science and local biodiversity curricula.",
+    "description_kr": "전 학제에 현장 중심 생태 학습 도입; 시민과학과 지역 생물다양성 교육과정.",
+    "source": "Preprint Table 1"
+  }
+]
