@@ -20,4 +20,95 @@
     button.toggle{ padding:.35rem .7rem; border-radius:8px; border:1px solid var(--stroke); background:#fff; cursor:pointer; }
     button.toggle.active{ background:#0f172a; color:#fff; border-color:#0f172a; }
   </style>
-  <
+  <script>
+    const STATIC_I18N = {
+      en:{ title:"Seeds • DMZ Futures Explorer", h1:"Seeds Library", filter:"Filter by domain", all:"All domains",
+           back:"← Back to Explore", source:"Source" },
+      kr:{ title:"시드 • DMZ 미래 탐색기", h1:"시드 라이브러리", filter:"도메인으로 필터", all:"모든 도메인",
+           back:"← 탐색으로 돌아가기", source:"출처" }
+    };
+    function applyI18n(lang){
+      document.title = STATIC_I18N[lang].title;
+      document.getElementById("h1").textContent = STATIC_I18N[lang].h1;
+      document.getElementById("label-filter").textContent = STATIC_I18N[lang].filter;
+      document.getElementById("back").textContent = STATIC_I18N[lang].back;
+      const sel = document.getElementById("domain");
+      sel.options[0].text = STATIC_I18N[lang].all;
+      // update existing cards
+      document.querySelectorAll("[data-source-label]").forEach(el => el.textContent = STATIC_I18N[lang].source + ": ");
+    }
+    document.addEventListener("dmz-lang-change", e => applyI18n(e.detail.lang));
+  </script>
+</head>
+<body>
+  <header>
+    <h1 id="h1">Seeds Library</h1>
+    <div>
+      <button id="btn-en" class="toggle">EN</button>
+      <button id="btn-kr" class="toggle">KR</button>
+    </div>
+  </header>
+  <nav>
+    <a id="back" href="index.html">← Back to Explore</a>
+  </nav>
+
+  <div class="toolbar">
+    <label id="label-filter" for="domain">Filter by domain</label>
+    <select id="domain">
+      <option value="">All domains</option>
+    </select>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <script>
+    let LANG = localStorage.getItem("dmz-lang") || "en";
+    function setLang(lang){
+      LANG = lang; localStorage.setItem("dmz-lang",lang);
+      document.getElementById("btn-en").classList.toggle("active", lang==="en");
+      document.getElementById("btn-kr").classList.toggle("active", lang==="kr");
+      applyI18n(lang);
+      document.dispatchEvent(new CustomEvent("dmz-lang-change",{detail:{lang}}));
+      render();
+    }
+    document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
+    document.getElementById("btn-kr").addEventListener("click", ()=>setLang("kr"));
+    applyI18n(LANG);
+
+    let seeds = [];
+    const domainSel = document.getElementById("domain");
+    domainSel.addEventListener("change", render);
+
+    fetch("data/seeds.json").then(r=>r.json()).then(json=>{
+      seeds = json;
+      // populate domains
+      const domains = [...new Set(seeds.map(s=>s.domain).filter(Boolean))].sort();
+      for(const d of domains){
+        const opt = document.createElement("option");
+        opt.value = d; opt.textContent = d;
+        domainSel.appendChild(opt);
+      }
+      render();
+    }).catch(err=>{
+      document.getElementById("grid").innerHTML = `<div class="muted">Load error: ${err.message}</div>`;
+    });
+
+    function render(){
+      const grid = document.getElementById("grid");
+      const dom = domainSel.value;
+      const list = dom ? seeds.filter(s=>s.domain===dom) : seeds;
+      grid.innerHTML = list.map(s=>`
+        <article class="card">
+          <h3>${LANG==="kr" ? (s.title_kr||"") : (s.title_en||"")}</h3>
+          <p class="muted">${LANG==="kr" ? (s.description_kr||"") : (s.description_en||"")}</p>
+          <p class="muted"><strong data-source-label>Source: </strong>${s.source||"—"}</p>
+        </article>
+      `).join("");
+    }
+
+    // init buttons state
+    document.getElementById("btn-en").classList.toggle("active", LANG==="en");
+    document.getElementById("btn-kr").classList.toggle("active", LANG==="kr");
+  </script>
+</body>
+</html>
